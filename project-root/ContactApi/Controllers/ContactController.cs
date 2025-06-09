@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
-using ContactApi.Models;
 using ContactApi.Data;
+using ContactApi.Models;
 
 namespace ContactApi.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class ContactController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -16,9 +16,10 @@ namespace ContactApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveContact([FromBody] Contact contact)
+        public IActionResult Post([FromBody] Contact contact)
         {
-            // Save contact logic
+            _context.Contacts.Add(contact);
+            _context.SaveChanges();
             return Ok();
         }
     }
